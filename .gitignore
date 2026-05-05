@@ -1,0 +1,18 @@
+# Ignore Java compiled bytecode
+*.class
+
+# Ignore macOS system files (prevents "hidden" file clutter)
+.DS_Store
+
+# Ignore VS Code configuration and workspace files
+.vscode/
+
+# Ignore project metadata from other IDEs (like IntelliJ or Eclipse)
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+
+# Optional: Ignore the actual CSV data if you want it to remain local only
+shopping_list.csv
