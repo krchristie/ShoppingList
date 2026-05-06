@@ -56,14 +56,22 @@ The project follows a modular **Model-View-Controller (MVC)** inspired architect
 
 ### Main Interface
 The primary application window showing custom Swing components, gradient background, and the persistent shopping list.
-![Current Shopping List](currentShoppingList.png)
+![Current Shopping List](ShoppingList-main.jpg)
 
 ---
 
 ### Smart Item Entry & Updates
 The "Add" and "Edit" interfaces. The name field provides autocomplete suggestions powered by a `TreeSet` of historical items.
-![Add New Item](addNewItem.png)
-![Update Item](updateItem.png)
+![Add New Item](ShoppingList-addNewItem.jpg)
+![Update Item](ShoppingList-EditItem.jpg)
+![Suggestion List](ShoppingList-suggestedItems.jpg)
+
+---
+
+### Ability to Edit Master List
+The Master List can be modified via "Add" and "Edit" interfaces that only allow editing the item name.
+![Add New Item to Master](EditItemMasterList-popup.jpg)
+![Update Item in Master](EditMasterList-main.jpg)
 
 ---
 
