@@ -16,3 +16,4 @@
 
 # Optional: Ignore the actual CSV data if you want it to remain local only
 shopping_list.csv
+master_list.csv

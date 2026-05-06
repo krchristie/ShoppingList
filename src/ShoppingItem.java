@@ -1,36 +1,50 @@
 /**
  * ShoppingItem.java
  *
- * Represents a single item in the shopping list.
- * Functions as the Model in the application architecture, demonstrating
- * encapsulation through private fields and public accessors.
+ * This class serves as the core data model for the application.
+ * It encapsulates the attributes of a grocery item—name, quantity, and unit—and
+ * provides logic for human-readable string formatting.
  */
 public class ShoppingItem {
 
     /** The descriptive name of the grocery item. */
     private String itemName;
 
-    /** The numerical quantity of the item (can be null if unspecified). */
+    /**
+     * The numerical quantity of the item; uses Double to allow for fractional
+     * amounts.
+     */
     private Double amount;
 
-    /** The unit of measurement for the amount (e.g., "lbs", "oz", "gal"). */
+    /** The unit of measurement for the amount (e.g., "lb", "oz", "gal"). */
     private String unit;
 
     /**
-     * Constructs a new ShoppingItem.
+     * Primary constructor to initialize a ShoppingItem with all attributes.
      *
-     * @param itemName The name of the item (stored in lowercase for consistency).
-     * @param amount   The quantity of the item (Double type allows for fractions).
-     * @param unit     The unit of measurement.
+     * @param itemName The name of the item.
+     * @param amount   The quantity of the item (null if no amount is specified).
+     * @param unit     The unit of measurement (empty string if no unit is
+     *                 specified).
      */
     public ShoppingItem(String itemName, Double amount, String unit) {
-        this.itemName = itemName;
+        setItemName(itemName); // Use setter to ensure name normalization
         this.amount = amount;
         this.unit = unit;
     }
 
     /**
-     * Retrieves the item name.
+     * Secondary constructor for items where only a name is known.
+     * Often used when pulling items from the Master List history.
+     *
+     * @param itemName The name of the item.
+     */
+    public ShoppingItem(String itemName) {
+        this(itemName, null, "");
+    }
+
+    /**
+     * Retrieve the item name.
      *
      * @return The name of the item.
      */
@@ -39,64 +53,73 @@ public class ShoppingItem {
     }
 
     /**
-     * Updates the item name.
+     * Update the item name.
+     * Normalizes input by trimming whitespace and converting to lowercase.
      *
-     * @param itemName The new name to set.
+     * @param itemName The new name to assign to this item.
      */
     public void setItemName(String itemName) {
-        this.itemName = itemName;
+        if (itemName != null) {
+            this.itemName = itemName.trim().toLowerCase();
+        } else {
+            this.itemName = "";
+        }
     }
 
     /**
-     * Retrieves the item amount.
+     * Retrieve the item amount.
      *
-     * @return The quantity of the item as a Double, or null if not set.
+     * @return The numerical quantity, or null if unspecified.
      */
     public Double getAmount() {
         return amount;
     }
 
     /**
-     * Updates the item amount.
+     * Update the item amount.
      *
-     * @param amount The new quantity to set.
+     * @param amount The new quantity to assign.
      */
     public void setAmount(Double amount) {
         this.amount = amount;
     }
 
     /**
-     * Retrieves the unit of measurement.
+     * Retrieve the unit of measurement.
      *
-     * @return The unit of measurement as a String.
+     * @return The string representing the unit.
      */
     public String getUnit() {
         return unit;
     }
 
     /**
-     * Updates the unit of measurement.
+     * Update the unit of measurement.
      *
-     * @param unit The new unit to set.
+     * @param unit The new unit label (e.g., "g", "kg").
      */
     public void setUnit(String unit) {
         this.unit = unit;
     }
 
     /**
-     * Returns a formatted string representation of the item for UI display.
-     * Formats numeric amounts by hiding the decimal if the value is a whole number,
-     * and applies proper plural/singular formatting to the unit.
+     * Generate a formatted string for display in the user interface.
      *
-     * @return A formatted string (e.g., "apples, 2 lbs" or "milk, 1 gal").
+     * This method builds a clean representation of the item. It automatically
+     * strips trailing zeros from whole numbers (e.g., "1.0" becomes "1")
+     * and calls formatUnit to handle singular/plural consistency.
+     *
+     * @return A formatted string such as "apples, 2 lbs" or "milk, 1 gal".
      */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(itemName);
 
+        // Only append details if an amount exists and is greater than zero
         if (amount != null && amount > 0) {
             sb.append(", ");
 
+            // Check if the number is a whole integer to avoid ".0" in the UI
             if (amount == amount.intValue()) {
                 sb.append(amount.intValue());
             } else {
@@ -111,12 +134,14 @@ public class ShoppingItem {
     }
 
     /**
-     * Converts specified plural units to their singular form if the amount is
-     * exactly 1.0.
+     * Adjust units for singular/plural grammatical correctness.
      *
-     * @param amt         The numerical quantity of the item.
-     * @param currentUnit The assigned unit of measurement.
-     * @return The properly formatted unit string (singular or plural).
+     * Maps common abbreviations (lbs, qts, pts) back to their singular
+     * form if the quantity is exactly 1.0.
+     *
+     * @param amt         The quantity used to determine plurality.
+     * @param currentUnit The unit string to be evaluated.
+     * @return The grammatically appropriate unit string.
      */
     private String formatUnit(Double amt, String currentUnit) {
         if (amt == null || amt != 1.0) {
