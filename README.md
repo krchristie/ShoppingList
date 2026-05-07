@@ -66,15 +66,16 @@ The primary application window showing custom Swing components, gradient backgro
 ### Smart Item Entry & Updates
 The "Add" and "Edit" interfaces. The name field provides autocomplete suggestions powered by a `TreeSet` of historical items.
 ![Add New Item](ShoppingList-addNewItem.jpg)
-![Update Item](ShoppingList-EditItem.jpg)
 ![Suggestion List](ShoppingList-suggestedItems.jpg)
+![Update Item](ShoppingList-EditItem.jpg)
 
 ---
 
 ### Ability to Edit Master List
 The Master List can be modified via "Add" and "Edit" interfaces that focus exclusively on editing the item name for the global database.
-![Add New Item to Master](EditItemMasterList-popup.jpg)
 ![Update Item in Master](EditMasterList-main.jpg)
+![Add New Item to Master](EditItemMasterList-popup.jpg)
+
 
 ---
 
