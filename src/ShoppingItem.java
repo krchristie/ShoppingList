@@ -16,7 +16,7 @@ public class ShoppingItem {
      */
     private Double amount;
 
-    /** The unit of measurement for the amount (e.g., "lb", "oz", "gal"). */
+    /** The unit of measurement for the amount (e.g., "lb", "oz", "gal", etc.). */
     private String unit;
 
     /**
@@ -141,6 +141,7 @@ public class ShoppingItem {
      *
      * @param amt         The quantity used to determine plurality.
      * @param currentUnit The unit string to be evaluated.
+     * 
      * @return The grammatically appropriate unit string.
      */
     private String formatUnit(Double amt, String currentUnit) {
