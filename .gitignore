@@ -14,6 +14,6 @@
 .classpath
 .settings/
 
-# Optional: Ignore the actual CSV data if you want it to remain local only
-shopping_list.csv
-master_list.csv
+# Do NOT ignore the CSV data so that it will propagate to other environments for demo
+# shopping_list.csv
+# master_list.csv
