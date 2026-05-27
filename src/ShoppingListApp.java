@@ -6,6 +6,9 @@ import javax.swing.SwingUtilities;
  * The main entry point for the application.
  * This class coordinates the initialization of the data layer (ListManager)
  * and the user interface (ShoppingListGUI).
+ * 
+ * @author Karen R. Christie
+ * @since April 2026
  */
 public class ShoppingListApp {
 

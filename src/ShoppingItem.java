@@ -4,6 +4,9 @@
  * This class serves as the core data model for the application.
  * It encapsulates the attributes of a grocery item—name, quantity, and unit—and
  * provides logic for human-readable string formatting.
+ * 
+ * @author Karen R. Christie
+ * @since April 2026
  */
 public class ShoppingItem {
 

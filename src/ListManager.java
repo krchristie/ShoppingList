@@ -10,6 +10,9 @@ import java.util.TreeSet;
  * This class serves as the Controller/Logic layer of the application.
  * It manages two distinct datasets: the active shopping list and the
  * master history of unique items used for autocomplete and reference.
+ * 
+ * @author Karen R. Christie
+ * @since April 2026
  */
 public class ListManager {
 

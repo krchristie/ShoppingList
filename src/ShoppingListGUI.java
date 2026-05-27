@@ -9,6 +9,9 @@ import java.awt.*;
  * This class serves as the View component in the MVC architecture.
  * It manages the graphical user interface, including the dynamic switching
  * between the active shopping list and the master item history.
+ * 
+ * @author Karen R. Christie
+ * @since April 2026
  */
 public class ShoppingListGUI extends JFrame {
     private ListManager manager;
