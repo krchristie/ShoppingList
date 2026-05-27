@@ -5,6 +5,8 @@
 ## Description
 Karen's Shopping List Manager is a Java Swing application designed for grocery planning. It employs a decoupled **Model-View-Controller (MVC)** architecture to manage a persistent active shopping list and a persistent master history of unique items.
 
+---
+
 ### Key Features:
 * **Persistent Storage:** Automatically synchronizes state using `shopping_list.csv` and `master_list.csv` for the active list and historical database.
 * **Default State Initialization:** If no master list is detected on the first run, the application populates the database with 25 common items to immediately demonstrate autocomplete functionality and scroll bar.
@@ -27,11 +29,6 @@ The project follows a decoupled **Model-View-Controller (MVC)** architecture to 
 | **`ListManager.java`** | **The Controller**; manages data sorting, duplicate prevention logic, and CSV I/O. |
 | **`ShoppingItem.java`** | **The Model**; encapsulates item data and handles complex string/unit formatting logic. |
 
-### System Design (UML)
-The following diagram outlines the class relationships and data flow within the MVC architecture:
-
-![System UML Diagram](./img/ShoppingListAppUML.png)
-
 
 ### System Design (UML)
 The following class diagram illustrates the relationships between the Model (`ShoppingItem`), the View (`ShoppingListGUI`), and the Controller (`ListManager`).
@@ -45,7 +42,7 @@ The following class diagram illustrates the relationships between the Model (`Sh
 * Java Development Kit (JDK) 11 or higher.
 * A terminal or IDE.
 
-## Installation & Running
+### Installation & Running
 1. **Navigate to the project root directory.**
 2. **Compile the source code:**
    ```bash
@@ -57,25 +54,10 @@ The following class diagram illustrates the relationships between the Model (`Sh
    ```
    *Note: The application will automatically create `shopping_list.csv` and `master_list.csv` in the project root upon launch, if they do not already exist.*
 
-
-### Installation & Running
-1.  **Navigate to the source folder:**
-    ```bash
-    cd src
-    ```
-2.  **Compile the source code:**
-    ```bash
-    javac *.java
-    ```
-3.  **Run the application:**
-    ```bash
-    java ShoppingListApp
-    ```
-
 ### Using the App
 1.  **Add Items:** Click the "Add Item" button. Start typing in the dropdown; the app will suggest items from your master history.
 2.  **Edit Items:** Click the "Edit" button next to any item on the active list to modify its name, quantity, or unit.
-3.  **Check off Items:** Click the checkbox next to an item to remove it from your active list (it remains in the master history).
+3.  **Check off Items:** Click the checkbox to the left of an item to remove it from your active list (it remains in the master history).
 4.  **Manage Master List:** Click the "Edit Master List" button inside the Add/Edit dialog to switch views. Here, you can add, edit, or remove items from the global reference list.
 5.  **Persistence:** Changes are saved automatically after every modification. The active list and master list will reload upon the next application launch.
 
