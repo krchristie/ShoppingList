@@ -1,29 +1,42 @@
 # Karen's Shopping List Manager
-**Author:** [Your Name]
+**Author:** Karen R. Christie  
+**Developed:** April-May 2026
 
 ## Description
-Karen's Shopping List Manager is a Java Swing application designed for grocery planning. The application features persistent CSV storage, a custom graphical interface, and data management for both an active shopping list and a historical master list of items.
+Karen's Shopping List Manager is a Java Swing application designed for grocery planning. It employs a decoupled **Model-View-Controller (MVC)** architecture to manage a persistent active shopping list and a persistent master history of unique items.
 
 ### Key Features:
-* **Persistent Storage:** Automatically saves and loads state using two files: `shopping_list.csv` for the active list and `master_list.csv` for the historical item database.
-* **Seed Data:** On the first run, if no master list exists, the application populates the database with a default set of 25 common grocery items.
-* **Autocomplete Suggestions:** Utilizes a `TreeSet` to store and alphabetically sort unique items added over time, providing filtered autocomplete suggestions for new entries while preventing duplicates of items already on the active list.
-* **Dual Views:** Allows users to toggle between managing their active shopping list and editing the global master list.
-* **Custom UI:** Features a custom "Electric Purple" and "Lavender" theme with gradient backgrounds and anti-aliased rounded buttons.
-* **Input Validation:** Includes exception handling for numeric inputs and empty fields to prevent application crashes during data entry.
+* **Persistent Storage:** Automatically synchronizes state using `shopping_list.csv` and `master_list.csv` for the active list and historical database.
+* **Default State Initialization:** If no master list is detected on the first run, the application populates the database with 25 common items to immediately demonstrate autocomplete functionality and scroll bar.
+* **Contextual Autocomplete Suggestions:** Utilizes a `TreeSet` with a case-insensitive comparator to ensure master history integrity (e.g., treating "apple" and "Apple" as duplicates). When suggesting items to add, the system dynamically filters these suggestions to exclude items already present on the active shopping list.
+* **Smart Unit Formatting:** The data model handles pluralization logic for common units (e.g., converting "lbs", "qts", or "pts" to singular forms when the quantity is exactly 1.0).
+* **Thread-Safe Execution:** The GUI is initialized on the Event Dispatch Thread (EDT) to ensure stability within the Java Swing framework.
+* **Dual Views:** Seamlessly toggles between the Active Shopping List and the Master History editor.
+* **Custom UI:** Features a refined lavender and electric purple theme with custom gradient backgrounds and anti-aliased rounded buttons.
+* **Input Validation:** Robust exception handling manages `NumberFormatException` and empty fields to ensure data integrity.
 
 ---
 
 ## Project Structure
-The project follows a modular **Model-View-Controller (MVC)** architecture:
+The project follows a decoupled **Model-View-Controller (MVC)** architecture to ensure clear separation of concerns:
 
 | File | Role |
 | :--- | :--- |
-| **`ShoppingListApp.java`** | The entry point (Driver). Initializes the data manager, seeds the initial master list, and launches the GUI on the Event Dispatch Thread. |
-| **`ListManager.java`** | The Controller. Manages the datasets for the active shopping list and the master item history, including CSV file I/O and filtering logic. |
-| **`ShoppingItem.java`** | The Model. Encapsulates grocery item fields (Name, Amount, Unit) and handles name normalization and unit formatting. |
-| **`ShoppingListGUI.java`** | The View. Contains all Swing components, custom paint logic, dialog generation, and event listeners for toggling between list views. |
+| **`ShoppingListApp.java`** | Entry point; handles backend initialization and thread-safe GUI launch on the EDT. |
+| **`ShoppingListGUI.java`** | **The View**; manages custom Swing components, event listeners, and UI state toggling. |
+| **`ListManager.java`** | **The Controller**; manages data sorting, duplicate prevention logic, and CSV I/O. |
+| **`ShoppingItem.java`** | **The Model**; encapsulates item data and handles complex string/unit formatting logic. |
 
+### System Design (UML)
+The following diagram outlines the class relationships and data flow within the MVC architecture:
+
+![System UML Diagram](./img/ShoppingListAppUML.png)
+
+
+### System Design (UML)
+The following class diagram illustrates the relationships between the Model (`ShoppingItem`), the View (`ShoppingListGUI`), and the Controller (`ListManager`).
+
+![System UML Diagram](./img/ShoppingListAppUML.png)
 ---
 
 ## How to Use It
@@ -31,6 +44,19 @@ The project follows a modular **Model-View-Controller (MVC)** architecture:
 ### Prerequisites
 * Java Development Kit (JDK) 11 or higher.
 * A terminal or IDE.
+
+## Installation & Running
+1. **Navigate to the project root directory.**
+2. **Compile the source code:**
+   ```bash
+   javac src/*.java
+   ```
+3. **Run the application:**
+   ```bash
+   java -cp src ShoppingListApp
+   ```
+   *Note: The application will automatically create `shopping_list.csv` and `master_list.csv` in the project root upon launch, if they do not already exist.*
+
 
 ### Installation & Running
 1.  **Navigate to the source folder:**
@@ -59,22 +85,22 @@ The project follows a modular **Model-View-Controller (MVC)** architecture:
 
 ### Main Interface
 The primary application window showing custom Swing components, gradient background, and the persistent shopping list.
-![Current Shopping List](ShoppingList-main.jpg)
+![Current Shopping List](./img/ShoppingList-main.jpg)
 
 ---
 
 ### Smart Item Entry & Updates
 The "Add" and "Edit" interfaces. The name field provides autocomplete suggestions powered by a `TreeSet` of historical items.
-![Add New Item](ShoppingList-addNewItem.jpg)
-![Suggestion List](ShoppingList-suggestedItems.jpg)
-![Update Item](ShoppingList-EditItem.jpg)
+![Add New Item](./img/ShoppingList-addNewItem.jpg)
+![Suggestion List](./img/ShoppingList-suggestedItems.jpg)
+![Update Item](./img/ShoppingList-EditItem.jpg)
 
 ---
 
 ### Ability to Edit Master List
 The Master List can be modified via "Add" and "Edit" interfaces that focus exclusively on editing the item name for the global database.
-![Update Item in Master](EditMasterList-main.jpg)
-![Add New Item to Master](EditItemMasterList-popup.jpg)
+![Update Item in Master](./img/EditMasterList-main.jpg)
+![Add New Item to Master](./img/EditItemMasterList-popup.jpg)
 
 
 ---
@@ -83,7 +109,7 @@ The Master List can be modified via "Add" and "Edit" interfaces that focus exclu
 The application validates user inputs before processing:
 
 **1. Logical Validation:** Prevents the creation of items with empty names.
-![Blank Name Error](exceptionHandlingItem.png)
+![Blank Name Error](./img/exceptionHandlingItem.png)
 
 **2. Data Type Validation:** Uses `try-catch` blocks to handle `NumberFormatException` when non-numeric data is entered into the amount field.
-![Invalid Amount Error](exceptionHandlingAmount.png)
+![Invalid Amount Error](./img/exceptionHandlingAmount.png)
